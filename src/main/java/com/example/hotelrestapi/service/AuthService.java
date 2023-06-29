@@ -1,5 +1,6 @@
 package com.example.hotelrestapi.service;
 
+import com.example.hotelrestapi.entity.user.UserEntity;
 import com.example.hotelrestapi.exception.DataNotFoundException;
 import com.example.hotelrestapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,10 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserEntityByUsername(username).orElseThrow(
-                ()-> new DataNotFoundException("User not found")
-        );
+        UserEntity userEntityByEMail = userRepository.findUserEntityByEMail(username);
+        if(userEntityByEMail==null){
+            throw new DataNotFoundException("User not found");
+        }
+        return userEntityByEMail;
     }
 }
