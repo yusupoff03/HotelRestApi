@@ -23,7 +23,7 @@ import java.util.List;
 public class UserEntity extends BaseEntity implements UserDetails{
     private String name;
     @Column(unique = true,nullable = false)
-    private String eMail;
+    private String email;
     private String password;
     private int age;
     private int canceledRequests;
@@ -49,7 +49,7 @@ public class UserEntity extends BaseEntity implements UserDetails{
 
     @Override
     public String getUsername() {
-        return eMail;
+        return email;
     }
 
     @Override

@@ -26,6 +26,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
       String token=request.getHeader("authentication");
       if(token==null||!token.startsWith("Bearer ")){
           filterChain.doFilter(request,response);
+          return;
       }
       token=token.substring(7);
         Jws<Claims> claims=jwtService.extractToken(token);
