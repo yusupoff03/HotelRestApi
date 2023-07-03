@@ -16,12 +16,10 @@ public class UserCreatDto {
     private String name;
     @NotBlank(message = "EMail cannot be blank")
     @NotNull(message = "EMail cannot be null")
-    private String eMail;
+    private String email;
     @NotBlank(message = "Password cannot be blank")
     @NotNull(message = "Password cannot be null")
     private String password;
-    @NotBlank(message = "Age cannot be blank")
-    @NotNull(message = "Age cannot be null")
     private int age;
     private List<UserRole> roles;
 }

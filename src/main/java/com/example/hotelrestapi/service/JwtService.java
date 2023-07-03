@@ -7,12 +7,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
+@Service
 public class JwtService {
     @Value("${jwt.secret.key}")
     private String secretKey;
@@ -23,7 +24,7 @@ public class JwtService {
    public String generateAccessToken(UserEntity user){
        return Jwts.builder()
                .signWith(SignatureAlgorithm.HS512,secretKey)
-               .setSubject(user.getEMail())
+               .setSubject(user.getUsername())
                .setIssuedAt(new Date())
                .setExpiration(new Date(new Date().getTime()+accessTokenExpiry))
                .addClaims( Map.of("roles",getRoles(user.getAuthorities())))
@@ -32,7 +33,7 @@ public class JwtService {
    public String generateRefreshToken(UserEntity user){
        return Jwts.builder()
                .signWith(SignatureAlgorithm.HS512,secretKey)
-               .setSubject(user.getEMail()).setIssuedAt(new Date())
+               .setSubject(user.getUsername()).setIssuedAt(new Date())
                .setExpiration(new Date(new Date().getTime()+refreshTokenExpiry))
                .compact();
    }
