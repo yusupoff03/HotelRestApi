@@ -23,7 +23,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-      String token=request.getHeader("authentication");
+      String token=request.getHeader("authorization");
       if(token==null||!token.startsWith("Bearer ")){
           filterChain.doFilter(request,response);
           return;

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -64,6 +65,15 @@ public class RoomServiceImpl implements RoomService {
         if (room1 != null) {
             throw new EmailAlreadyExistsException("This room number already exists");
         }
+        return roomRepository.save(room);
+    }
+
+    @Override
+    public RoomEntity editRoom(RoomCreatDto roomCreatDto, UUID roomId) {
+        RoomEntity room=modelMapper.map(roomCreatDto,RoomEntity.class);
+        roomRepository.findById(roomId).orElseThrow(
+                ()->new DataNotFoundException("Room not found"));
+        room.setId(roomId);
         return roomRepository.save(room);
     }
 }

@@ -21,6 +21,7 @@ public class BookingRequest extends BaseEntity {
     @ManyToOne
     private RoomEntity room;
     private Double price;
+    private RequestStatus status;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
 }

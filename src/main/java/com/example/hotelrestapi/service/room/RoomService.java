@@ -4,6 +4,7 @@ import com.example.hotelrestapi.dto.RoomCreatDto;
 import com.example.hotelrestapi.entity.room.RoomEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface RoomService {
     List<RoomEntity> getAll(int page, int size);
@@ -11,4 +12,6 @@ public interface RoomService {
     List<RoomEntity> getAllBySort(int page, int size, boolean sortByNumber, boolean sortByPrice, boolean sortBySize);
 
     RoomEntity addRoom(RoomCreatDto roomCreatDto);
+
+    RoomEntity editRoom(RoomCreatDto roomCreatDto, UUID roomId);
 }

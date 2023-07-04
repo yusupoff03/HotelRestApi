@@ -11,8 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.RoundingMode;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +27,12 @@ public class RoomController {
             throw new RequestValidationException(bindingResult.getAllErrors());
         }
         return ResponseEntity.ok(roomService.addRoom(roomCreatDto));
+    }
+    @PutMapping(value = "/edit-room")
+    @PreAuthorize(value = "hasRole('ADMIN')")
+    public ResponseEntity<RoomEntity> editRoom(
+            @RequestBody RoomCreatDto roomCreatDto, @RequestParam UUID roomId){
+      return ResponseEntity.ok(roomService.editRoom(roomCreatDto,roomId));
     }
     @GetMapping(value = "/get-all")
     public ResponseEntity<List<RoomEntity>> getAll(int page,int size){

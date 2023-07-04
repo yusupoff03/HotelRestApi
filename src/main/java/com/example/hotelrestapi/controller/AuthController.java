@@ -32,7 +32,7 @@ public class AuthController {
         if (user.getStatusCode().value() == 422) {
             throw new EmailAlreadyExistsException("This Email already exists");
         }
-        return ResponseEntity.ok(user.getBody());
+        return ResponseEntity.status(201).body(user.getBody());
     }
 
     @GetMapping(value = "/sign-in")
@@ -41,7 +41,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             throw new RequestValidationException(bindingResult.getAllErrors());
         }
-        return ResponseEntity.ok(userService.signIn(loginDto));
+        return ResponseEntity.status(302).body(userService.signIn(loginDto));
     }
 
     @GetMapping(value = "/refresh-token")
