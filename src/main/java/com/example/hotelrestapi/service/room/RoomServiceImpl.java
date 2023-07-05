@@ -76,4 +76,32 @@ public class RoomServiceImpl implements RoomService {
         room.setId(roomId);
         return roomRepository.save(room);
     }
+
+    @Override
+    public Boolean deleteById(UUID roomId) {
+        roomRepository.findById(roomId)
+                .orElseThrow(()->new DataNotFoundException("Room not found"));
+        roomRepository.deleteById(roomId);
+        return true;
+    }
+
+    @Override
+    public List<RoomEntity> getBySize(int size) {
+        List<RoomEntity> roomEntitiesBySizeBetween =
+                roomRepository.findRoomEntitiesBySizeBetween(size + 5, size - 5);
+        if(roomEntitiesBySizeBetween.isEmpty()){
+            throw new DataNotFoundException("Room not found");
+        }
+        return roomEntitiesBySizeBetween;
+    }
+
+    @Override
+    public List<RoomEntity> getByPrice(Double upperPrice, Double lowerPrice) {
+        List<RoomEntity> roomEntitiesByPriceBetween =
+                roomRepository.findRoomEntitiesByPriceBetween(upperPrice, lowerPrice);
+        if(roomEntitiesByPriceBetween.isEmpty()){
+            throw new DataNotFoundException("Room not found");
+        }
+        return roomEntitiesByPriceBetween;
+    }
 }

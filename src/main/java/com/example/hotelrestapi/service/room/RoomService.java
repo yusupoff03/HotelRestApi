@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public interface RoomService {
     List<RoomEntity> getAll(int page, int size);
-
     List<RoomEntity> getAllBySort(int page, int size, boolean sortByNumber, boolean sortByPrice, boolean sortBySize);
-
     RoomEntity addRoom(RoomCreatDto roomCreatDto);
-
     RoomEntity editRoom(RoomCreatDto roomCreatDto, UUID roomId);
+    Boolean deleteById(UUID roomId);
+    List<RoomEntity> getBySize(int size);
+    List<RoomEntity> getByPrice(Double upperPrice, Double lowerPrice);
 }

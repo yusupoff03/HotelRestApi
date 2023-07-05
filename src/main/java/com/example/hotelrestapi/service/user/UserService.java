@@ -19,4 +19,6 @@ public interface UserService {
     List<UserEntity> findAll(int page, int size);
 
     Boolean blockUser(UUID userId);
+
+    Boolean unBlockUser(UUID userId);
 }

@@ -25,4 +25,9 @@ public class UserController {
     public ResponseEntity<Boolean>blockUser(@RequestParam UUID userId){
         return ResponseEntity.ok(userService.blockUser(userId));
     }
+    @PutMapping(value = "/unblock-user")
+    @PreAuthorize(value = "hasRole('ADMIN')")
+    public ResponseEntity<Boolean>unBlockUser(@RequestParam UUID userId){
+        return ResponseEntity.ok(userService.unBlockUser(userId));
+    }
 }

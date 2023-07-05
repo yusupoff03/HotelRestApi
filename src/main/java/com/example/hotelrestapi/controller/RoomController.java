@@ -44,4 +44,18 @@ public class RoomController {
             ,boolean sortBySize,boolean sortByPrice){
         return ResponseEntity.ok(roomService.getAllBySort(page,size,sortByNumber,sortByPrice,sortBySize));
     }
+    @DeleteMapping(value = "/delete-room")
+    @PreAuthorize(value = "hasRole('ADMIN')")
+    public ResponseEntity<Boolean>deleteRoomById(@RequestParam UUID roomId){
+        return ResponseEntity.ok(roomService.deleteById(roomId));
+    }
+    @GetMapping(value = "/get-by-size")
+    public ResponseEntity<List<RoomEntity>> getBySize(@RequestParam int size){
+      return ResponseEntity.ok(roomService.getBySize(size));
+    }
+    @GetMapping(value = "/get-by-price")
+    public ResponseEntity<List<RoomEntity>>getByPrice(
+            @RequestParam Double UpperPrice,@RequestParam Double LowerPrice){
+        return ResponseEntity.ok(roomService.getByPrice(UpperPrice,LowerPrice));
+    }
 }

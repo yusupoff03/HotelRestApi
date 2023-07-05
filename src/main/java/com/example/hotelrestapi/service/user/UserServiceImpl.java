@@ -101,4 +101,16 @@ public class UserServiceImpl implements UserService {
         }
         return true;
     }
+
+    @Override
+    public Boolean unBlockUser(UUID userId) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new DataNotFoundException("User not found"));
+        if(user.getIsBlocked()){
+            user.setIsBlocked(false);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 }
